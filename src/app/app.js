@@ -11,8 +11,10 @@ import victimNames from "../assets/police_shooting_victim_names.txt?raw";
 // Load all visualizations
 map();
 timeline();
-race();
 mental();
+
+// Initialize and draw the race chart
+race().then(([drawChart]) => drawChart());
 
 // Inject victim names into background
 const container = document.querySelector(".background-names");

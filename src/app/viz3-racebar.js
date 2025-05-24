@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 
-const width = 750;
-const height = 350;
+const width = 800;
+const height = 400;
 
 const svg = d3
   .select("#viz3")
@@ -13,8 +13,14 @@ const svg = d3
 const data = [
   { race: "Black", killed: 2484, popM: 40, rate: 6.1, color: "#1d4ed8" },
   { race: "Hispanic", killed: 1717, popM: 65, rate: 2.5, color: "#ccc" },
-  { race: "White", killed: 4657, popM: 191, rate: 2.4, color: "#ccc" },
-  { race: "Other", killed: 380, popM: 39, rate: 0.9, color: "#ccc" },
+  {
+    race: "White, non-Hispanic",
+    killed: 4657,
+    popM: 191,
+    rate: 2.4,
+    color: "#ccc",
+  },
+  { race: "Other & multi", killed: 380, popM: 39, rate: 0.9, color: "#ccc" },
 ];
 
 export async function initialize() {
@@ -22,16 +28,14 @@ export async function initialize() {
 }
 
 function drawChart() {
-  console.log("Drawing race bar chart...");
   svg.selectAll("*").remove();
 
-  const padding = { top: 50, right: 30, bottom: 40, left: 60 };
+  const padding = { top: 50, right: 30, bottom: 60, left: 80 };
   const chartWidth = width - padding.left - padding.right;
   const chartHeight = height - padding.top - padding.bottom;
   const totalPop = d3.sum(data, (d) => d.popM);
 
   const xScale = d3.scaleLinear().domain([0, totalPop]).range([0, chartWidth]);
-
   const yScale = d3
     .scaleLinear()
     .domain([0, d3.max(data, (d) => d.rate)])
@@ -43,8 +47,7 @@ function drawChart() {
     const barWidth = xScale(d.popM);
     const barHeight = chartHeight - yScale(d.rate);
 
-    console.log(`${d.race} → width: ${barWidth}, height: ${barHeight}`);
-
+    // Bar
     svg
       .append("rect")
       .attr("x", currentX)
@@ -53,52 +56,57 @@ function drawChart() {
       .attr("height", barHeight)
       .attr("fill", d.color);
 
+    // Text: rate per million (top)
     svg
       .append("text")
       .attr("x", currentX + barWidth / 2)
-      .attr("y", yScale(d.rate) + padding.top - 28)
+      .attr("y", yScale(d.rate) + padding.top - 25)
       .attr("text-anchor", "middle")
-      .attr("font-weight", "bold")
-      .attr("font-size", "0.9em")
-      .text(d.race);
-
-    svg
-      .append("text")
-      .attr("x", currentX + barWidth / 2)
-      .attr("y", yScale(d.rate) + padding.top - 13)
-      .attr("text-anchor", "middle")
-      .attr("font-size", "0.85em")
+      .attr("font-size", "13px")
+      .attr("font-weight", "600")
       .text(`${d.rate} per million`);
 
+    // Text: race (bold)
+    svg
+      .append("text")
+      .attr("x", currentX + barWidth / 2)
+      .attr("y", yScale(d.rate) + padding.top - 8)
+      .attr("text-anchor", "middle")
+      .attr("font-weight", "700")
+      .attr("font-size", "13px")
+      .text(d.race);
+
+    // Text: killed count (inside bar or below)
     svg
       .append("text")
       .attr("x", currentX + barWidth / 2)
       .attr("y", chartHeight + padding.top - 3)
       .attr("text-anchor", "middle")
-      .attr("font-size", "0.85em")
+      .attr("font-size", "12px")
       .text(`${d.killed} killed`);
 
+    // Text: population (bottom line)
     svg
       .append("text")
       .attr("x", currentX + barWidth / 2)
-      .attr("y", chartHeight + padding.top + 12)
+      .attr("y", chartHeight + padding.top + 14)
       .attr("text-anchor", "middle")
-      .attr("font-size", "0.75em")
-      .attr("fill", "#444")
+      .attr("font-size", "11px")
+      .attr("fill", "#555")
       .text(`${d.popM}M`);
 
     currentX += barWidth;
   });
 
+  // Left-side label
   svg
     .append("text")
-    .attr(
-      "transform",
-      `translate(20, ${padding.top + chartHeight / 2}) rotate(-90)`
-    )
+    .attr("x", 15)
+    .attr("y", padding.top + chartHeight / 2)
     .attr("text-anchor", "middle")
-    .attr("font-size", "0.75rem")
+    .attr("font-size", "12px")
     .attr("fill", "#555")
+    .attr("transform", `rotate(-90, 15, ${padding.top + chartHeight / 2})`)
     .text("Higher rate of police killings →");
 }
 
