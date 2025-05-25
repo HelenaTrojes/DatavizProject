@@ -31,10 +31,10 @@ const raceLabels = {
 };
 
 const raceColors = {
-  Black: "#1d4ed8", // blue
-  Hispanic: "#ddd",
-  White: "#ddd",
-  Other: "#ddd",
+  Black: "#5b7fa3", // medium storm blue
+  Hispanic: "#89a7c2", // soft blue-grey
+  White: "#b9cbe0", // very light cool blue
+  Other: "#dce4ec", // almost-white blue-tinted
 };
 
 const codeToGroup = {
