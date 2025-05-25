@@ -103,7 +103,7 @@ p {
   padding: 2.5rem 1.5rem;
 
   h1 {
-    font-size: 3.5rem;
+    font-size: 5rem;
     font-weight: 800;
     margin-bottom: 1rem;
     color: #111;
@@ -114,6 +114,58 @@ p {
     color: #444;
     max-width: 900px;
     margin: 0 auto 1.2rem auto;
+  }
+  .fatal-stats {
+    text-align: center;
+    font-size: 2.2rem;
+    line-height: 1.4;
+    font-weight: 400;
+    margin-top: 1.5rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+
+    .victim-count {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #1d4ed8;
+      margin-right: 0.5rem;
+    }
+
+    .victim-text {
+      color: #111;
+    }
+
+    @media (max-width: 600px) {
+      font-size: 1.4rem;
+
+      .victim-count {
+        font-size: 2.5rem;
+      }
+    }
+  }
+}
+
+//Footer Section Stuff
+.footer {
+  text-align: center;
+  padding-bottom: 2rem;
+
+  .footer-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1rem;
+    color: #444;
+
+    h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
   }
 }
 
@@ -237,4 +289,107 @@ p {
   border-width: 6px 6px 0 6px;
   border-style: solid;
   border-color: #000 transparent transparent transparent;
+}
+
+// Age Bar Chart Section
+.tooltip-age {
+  position: absolute;
+  z-index: 9999;
+  background: #000;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.age-distribution-section {
+  text-align: center;
+
+  .viz-header {
+    margin-bottom: 0.5rem; // ↓ reduced space above chart
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #333;
+      max-width: 800px;
+      margin: 0 auto 0.25rem auto; // ↓ reduced bottom margin
+      line-height: 1.6;
+    }
+  }
+
+  #age-chart-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .age-footnote {
+    font-size: 1rem;
+    color: #444;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+    text-align: center;
+    margin-top: 0.25rem;
+  }
+}
+
+// Closing Image Section (above footer)
+.closing-image-section {
+  text-align: center;
+  margin-bottom: 3rem;
+
+  .image-wrapper {
+    position: relative;
+    display: inline-block;
+    border-radius: 8px;
+    overflow: hidden;
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 6px;
+    }
+
+    .image-caption {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.85);
+      color: #fff;
+      font-size: 0.95rem;
+      padding: 10px 16px;
+      border-radius: 4px;
+      min-width: 520px; // forces wider layout
+      white-space: nowrap; // ensures one-line text
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .attribution {
+      display: block;
+      margin-top: 6px;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: #ccc;
+    }
+
+    &:hover .image-caption {
+      opacity: 1;
+    }
+  }
 }

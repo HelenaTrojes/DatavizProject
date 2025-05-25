@@ -16,10 +16,13 @@
     <main>
       <section class="text-section intro">
         <h1>Fatal Force</h1>
-        <p>
-          A data-driven exploration of lethal force by police in the United
-          States from 2015 to 2022
-        </p>
+        <div id="fatal-force-stats" class="fatal-stats">
+          <span class="victim-count" id="victim-count">0</span>
+          <span class="victim-text">
+            people have been shot and killed by police in the United States from
+            <span id="year-range">2015–2022</span>
+          </span>
+        </div>
       </section>
 
       <section class="viz" id="viz">
@@ -39,11 +42,7 @@
             annually since 2015.
           </p>
         </div>
-
-        <!-- Chart renders here -->
         <div id="timeline-chart-container"></div>
-
-        <!-- This text goes BELOW the chart -->
         <div class="viz-footnote">
           <p class="keep-oneline">
             The number of lives lost reflects not just the scale of the problem,
@@ -68,10 +67,7 @@
             population size.
           </p>
         </div>
-
-        <!-- D3 chart renders here -->
         <div id="race-chart-container"></div>
-
         <div class="viz-explanation">
           <p>
             This chart shows fatal police shootings
@@ -89,6 +85,20 @@
         </div>
       </section>
 
+      <section class="viz age-distribution-section" id="viz5">
+        <div class="viz-header">
+          <h2>Most Victims Are Young</h2>
+          <p>
+            More than half of the people shot and killed by police are between
+            20 and 40 years old.
+          </p>
+        </div>
+        <div id="age-chart-container"></div>
+        <p class="age-footnote">
+          An overwhelming majority of the victims are male — over 95 percent.
+        </p>
+      </section>
+
       <section class="viz" id="viz4">
         <h2>Mental Illness and Threat Level</h2>
         <p>
@@ -97,14 +107,30 @@
         </p>
       </section>
 
+      <section class="closing-image-section hover-caption">
+        <div class="image-wrapper">
+          <img
+            src="/src/assets/img/whos-next.png"
+            alt="Protester with 'Who’s Next?' shirt"
+          />
+          <div class="image-caption">
+            “Not everything that is faced can be changed, but nothing can be
+            changed until it is faced.”
+            <div class="attribution">— James Baldwin</div>
+          </div>
+        </div>
+      </section>
+
       <!-- Footer -->
       <footer class="footer">
-        <h3>About This Project</h3>
-        <p>
-          This project was created to explore the patterns and disparities of
-          fatal police shootings in the United States using open data and
-          narrative visualization.
-        </p>
+        <div class="footer-inner">
+          <h3>About This Project</h3>
+          <p>
+            This narrative data visualization was created as part of the
+            university course Narrative Visualization, developed collaboratively
+            by Iosif Cicio, Felix Koller, and Helena Vishkurti.
+          </p>
+        </div>
       </footer>
 
       <div class="page-bottom-spacer"></div>
