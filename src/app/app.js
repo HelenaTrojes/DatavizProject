@@ -13,6 +13,8 @@ map();
 timeline();
 mental();
 
+// Initialize the timeline chart
+timeline().then(([drawBars]) => drawBars());
 // Initialize and draw the race chart
 race().then(([drawChart]) => drawChart());
 

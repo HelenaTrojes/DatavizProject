@@ -24,17 +24,20 @@ main {
   padding: $spacing-unit;
 }
 
+// Unified "glass box" style for all content sections
 .text-section,
 .viz,
 .footer {
   position: relative;
   z-index: 2;
   margin-bottom: 4rem;
-  background: rgba(255, 255, 255, 0.97);
+  background: rgba(255, 255, 255, 0.1); // very translucent
   padding: 1rem;
-  border: 1px solid #eee;
-  border-radius: 4px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+  border: none;
+  border-radius: 6px;
+  box-shadow: none;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 .viz svg {
@@ -72,7 +75,6 @@ p {
   font-size: 9px;
   line-height: 1.4;
   color: #000;
-
   font-family: monospace;
   text-transform: uppercase;
   text-align: justify;
@@ -81,7 +83,27 @@ p {
   overflow: hidden;
 }
 
-//Race Disparity Section
+// Intro Section (inherits glass style)
+.text-section.intro {
+  text-align: center;
+  padding: 2rem 1rem;
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: #111;
+  }
+
+  p {
+    font-size: 1.2rem;
+    color: #444;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+}
+
+// Race Disparity Section
 .race-disparity-section {
   .viz-header {
     text-align: center;
@@ -96,7 +118,7 @@ p {
     p {
       font-size: 1rem;
       color: #333;
-      max-width: 700px;
+      max-width: 900px;
       margin: 0 auto;
     }
   }
@@ -110,7 +132,7 @@ p {
   }
 
   .viz-explanation {
-    max-width: 700px;
+    max-width: 1000px;
     margin: 0 auto;
     font-size: 0.95rem;
     color: #333;
@@ -127,4 +149,66 @@ p {
       color: #111;
     }
   }
+}
+
+// Timeline Section
+.timeline-section {
+  .viz-header {
+    text-align: center;
+    margin-bottom: 1rem;
+
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #333;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+  }
+
+  #timeline-chart-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .viz-footnote {
+    font-size: 0.95rem;
+    text-align: center;
+    color: #444;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+}
+
+// Tooltip for timeline
+.tooltip.speech-bubble {
+  position: absolute;
+  z-index: 9999;
+  background: #000;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  transform: translateX(-50%);
+}
+
+.tooltip.speech-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px 6px 0 6px;
+  border-style: solid;
+  border-color: #000 transparent transparent transparent;
 }

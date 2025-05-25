@@ -13,9 +13,8 @@
       <section class="text-section intro">
         <h1>Fatal Force</h1>
         <p>
-          A data-driven exploration of fatal police shootings in the United
-          States from 2015 to 2022. Each chart below illustrates a different
-          aspect of this national issue.
+          A data-driven exploration of lethal force by police in the United
+          States from 2015 to 2022
         </p>
       </section>
 
@@ -26,9 +25,28 @@
         </p>
       </section>
 
-      <section class="viz" id="viz2">
-        <h2>Timeline of Shootings</h2>
-        <p>This bar chart shows the number of fatal shootings each year.</p>
+      <section class="viz timeline-section" id="viz2">
+        <div class="viz-header">
+          <h2>A Deadly Pattern That Persists</h2>
+          <p>
+            Every year, hundreds of people in the United States are fatally shot
+            by police. While the totals fluctuate slightly, the overall number
+            remains alarmingly consistent — averaging around 1,000 victims
+            annually since 2015.
+          </p>
+        </div>
+
+        <!-- Chart renders here -->
+        <div id="timeline-chart-container"></div>
+
+        <!-- This text goes BELOW the chart -->
+        <div class="viz-footnote">
+          <p>
+            The number of lives lost reflects not just the scale of the problem,
+            but its unsettling consistency — a reminder that reform remains
+            elusive.
+          </p>
+        </div>
       </section>
 
       <section class="viz race-disparity-section" id="viz3">
@@ -39,8 +57,11 @@
           </h2>
           <p>
             Although White Americans represent the largest share of police
-            shooting victims in absolute numbers, Black Americans are
-            disproportionately affected when adjusted for population size.
+            shooting victims in absolute numbers,
+          </p>
+          <p>
+            Black Americans are disproportionately affected when adjusted for
+            population size.
           </p>
         </div>
 
@@ -51,9 +72,8 @@
           <p>
             This chart shows fatal police shootings
             <strong>per million residents per year</strong>, grouped by race.
-            The height of each bar reflects the <strong>risk</strong> of being
-            killed by police, while the width reflects that group's share of the
-            U.S. population.
+            The height of each bar reflects the risk of being killed by police,
+            while the width reflects that group's share of the U.S. population.
           </p>
           <p>
             <strong>Black Americans</strong> are killed at more than

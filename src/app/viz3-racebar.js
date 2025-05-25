@@ -6,14 +6,16 @@ const height = 420;
 const svg = d3
   .select("#race-chart-container")
   .append("svg")
-  .attr("width", "100%") // fill container
+  .attr("width", "100%")
   .attr("viewBox", `0 0 ${width} ${height}`)
-  .attr("preserveAspectRatio", "xMidYMid meet") // properly centers content
+  .attr("preserveAspectRatio", "xMidYMid meet")
   .style("display", "block")
   .style("margin", "0 auto")
-  .style("background", "#fff");
+  .style("background", "rgba(255, 255, 255, 0.1)")
+  .style("backdrop-filter", "blur(6px)")
+  .style("-webkit-backdrop-filter", "blur(6px)")
+  .style("border-radius", "6px");
 
-// U.S. population estimates (millions)
 const racePopulation = {
   Black: 40,
   Hispanic: 65,
@@ -35,7 +37,6 @@ const raceColors = {
   Other: "#ddd",
 };
 
-// Mapping from CSV codes to grouped races
 const codeToGroup = {
   B: "Black",
   H: "Hispanic",
@@ -146,26 +147,31 @@ function drawChart(data) {
     currentX += barWidth;
   });
 
-  // Vertical axis label
+  // Vertical axis label — moved closer to the left edge of the bars
+  const axisLabelX = padding.left - 20;
+
   svg
     .append("text")
-    .attr("x", 15)
+    .attr("x", axisLabelX)
     .attr("y", padding.top + chartHeight / 2)
     .attr("text-anchor", "middle")
     .attr("font-size", "12px")
     .attr("fill", "#888")
-    .attr("transform", `rotate(-90, 15, ${padding.top + chartHeight / 2})`)
+    .attr(
+      "transform",
+      `rotate(-90, ${axisLabelX}, ${padding.top + chartHeight / 2})`
+    )
     .text("Higher rate of police killings →");
 
   // Bottom axis label
   svg
     .append("text")
     .attr("x", width / 2)
-    .attr("y", height - 10)
+    .attr("y", height - 35)
     .attr("text-anchor", "middle")
     .attr("font-size", "12px")
     .attr("fill", "#888")
-    .text("U.S. population");
+    .text("U.S. Population");
 }
 
 function clearChart() {
