@@ -31,12 +31,38 @@
         <p>This bar chart shows the number of fatal shootings each year.</p>
       </section>
 
-      <section class="viz" id="viz3">
-        <h2>Racial Disparities</h2>
-        <p>
-          Rates of fatal police shootings by race, adjusted per million
-          residents.
-        </p>
+      <section class="viz race-disparity-section" id="viz3">
+        <div class="viz-header">
+          <h2>
+            Black Americans are killed at a much higher rate than White
+            Americans
+          </h2>
+          <p>
+            Although White Americans represent the largest share of police
+            shooting victims in absolute numbers, Black Americans are
+            disproportionately affected when adjusted for population size.
+          </p>
+        </div>
+
+        <!-- D3 chart renders here -->
+        <div id="race-chart-container"></div>
+
+        <div class="viz-explanation">
+          <p>
+            This chart shows fatal police shootings
+            <strong>per million residents per year</strong>, grouped by race.
+            The height of each bar reflects the <strong>risk</strong> of being
+            killed by police, while the width reflects that group's share of the
+            U.S. population.
+          </p>
+          <p>
+            <strong>Black Americans</strong> are killed at more than
+            <strong>twice the rate</strong> of White Americans — despite being a
+            much smaller share of the population. Hispanic Americans also face
+            elevated risks. These disparities highlight broader questions of
+            systemic inequality and policing practices in the U.S.
+          </p>
+        </div>
       </section>
 
       <section class="viz" id="viz4">

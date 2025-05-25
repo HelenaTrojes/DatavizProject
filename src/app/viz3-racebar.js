@@ -1,36 +1,84 @@
 import * as d3 from "d3";
 
 const width = 800;
-const height = 400;
+const height = 420;
 
 const svg = d3
-  .select("#viz3")
+  .select("#race-chart-container")
   .append("svg")
-  .attr("width", width)
-  .attr("height", height)
+  .attr("width", "100%") // fill container
+  .attr("viewBox", `0 0 ${width} ${height}`)
+  .attr("preserveAspectRatio", "xMidYMid meet") // properly centers content
+  .style("display", "block")
+  .style("margin", "0 auto")
   .style("background", "#fff");
 
-const data = [
-  { race: "Black", killed: 2484, popM: 40, rate: 6.1, color: "#1d4ed8" },
-  { race: "Hispanic", killed: 1717, popM: 65, rate: 2.5, color: "#ccc" },
-  {
-    race: "White, non-Hispanic",
-    killed: 4657,
-    popM: 191,
-    rate: 2.4,
-    color: "#ccc",
-  },
-  { race: "Other & multi", killed: 380, popM: 39, rate: 0.9, color: "#ccc" },
-];
+// U.S. population estimates (millions)
+const racePopulation = {
+  Black: 40,
+  Hispanic: 65,
+  White: 191,
+  Other: 39,
+};
+
+const raceLabels = {
+  Black: "Black",
+  Hispanic: "Hispanic",
+  White: "White, non-Hispanic",
+  Other: "Other & multi",
+};
+
+const raceColors = {
+  Black: "#1d4ed8", // blue
+  Hispanic: "#ddd",
+  White: "#ddd",
+  Other: "#ddd",
+};
+
+// Mapping from CSV codes to grouped races
+const codeToGroup = {
+  B: "Black",
+  H: "Hispanic",
+  W: "White",
+  A: "Other",
+  N: "Other",
+  O: "Other",
+};
 
 export async function initialize() {
-  return [drawChart, clearChart];
+  const data = await d3.csv("/data/shootings.csv");
+
+  const raceCounts = d3.rollup(
+    data,
+    (v) => v.length,
+    (d) => {
+      const code = d.race?.trim();
+      return codeToGroup[code] || null;
+    }
+  );
+
+  const chartData = Array.from(raceCounts, ([race, killed]) => {
+    if (!racePopulation[race]) return null;
+    const popM = racePopulation[race];
+    return {
+      race,
+      killed,
+      popM,
+      rate: +(killed / popM).toFixed(1),
+      label: raceLabels[race],
+      color: raceColors[race],
+    };
+  }).filter(Boolean);
+
+  chartData.sort((a, b) => b.rate - a.rate);
+
+  return [() => drawChart(chartData), clearChart];
 }
 
-function drawChart() {
+function drawChart(data) {
   svg.selectAll("*").remove();
 
-  const padding = { top: 50, right: 30, bottom: 60, left: 80 };
+  const padding = { top: 50, right: 30, bottom: 70, left: 80 };
   const chartWidth = width - padding.left - padding.right;
   const chartHeight = height - padding.top - padding.bottom;
   const totalPop = d3.sum(data, (d) => d.popM);
@@ -56,40 +104,40 @@ function drawChart() {
       .attr("height", barHeight)
       .attr("fill", d.color);
 
-    // Text: rate per million (top)
+    // Top label: race
     svg
       .append("text")
       .attr("x", currentX + barWidth / 2)
-      .attr("y", yScale(d.rate) + padding.top - 25)
+      .attr("y", yScale(d.rate) + padding.top - 33)
       .attr("text-anchor", "middle")
       .attr("font-size", "13px")
-      .attr("font-weight", "600")
-      .text(`${d.rate} per million`);
+      .attr("font-weight", "bold")
+      .text(d.label);
 
-    // Text: race (bold)
+    // Top label: rate
     svg
       .append("text")
       .attr("x", currentX + barWidth / 2)
-      .attr("y", yScale(d.rate) + padding.top - 8)
-      .attr("text-anchor", "middle")
-      .attr("font-weight", "700")
-      .attr("font-size", "13px")
-      .text(d.race);
-
-    // Text: killed count (inside bar or below)
-    svg
-      .append("text")
-      .attr("x", currentX + barWidth / 2)
-      .attr("y", chartHeight + padding.top - 3)
+      .attr("y", yScale(d.rate) + padding.top - 18)
       .attr("text-anchor", "middle")
       .attr("font-size", "12px")
-      .text(`${d.killed} killed`);
+      .text(`${d.rate} per million per year`);
 
-    // Text: population (bottom line)
+    // Inside bar: killed
     svg
       .append("text")
       .attr("x", currentX + barWidth / 2)
-      .attr("y", chartHeight + padding.top + 14)
+      .attr("y", yScale(d.rate) + padding.top + barHeight / 2 + 5)
+      .attr("text-anchor", "middle")
+      .attr("font-size", "12px")
+      .attr("fill", "#000")
+      .text(`${d.killed} killed`);
+
+    // Bottom: population
+    svg
+      .append("text")
+      .attr("x", currentX + barWidth / 2)
+      .attr("y", chartHeight + padding.top + 16)
       .attr("text-anchor", "middle")
       .attr("font-size", "11px")
       .attr("fill", "#555")
@@ -98,16 +146,26 @@ function drawChart() {
     currentX += barWidth;
   });
 
-  // Left-side label
+  // Vertical axis label
   svg
     .append("text")
     .attr("x", 15)
     .attr("y", padding.top + chartHeight / 2)
     .attr("text-anchor", "middle")
     .attr("font-size", "12px")
-    .attr("fill", "#555")
+    .attr("fill", "#888")
     .attr("transform", `rotate(-90, 15, ${padding.top + chartHeight / 2})`)
     .text("Higher rate of police killings →");
+
+  // Bottom axis label
+  svg
+    .append("text")
+    .attr("x", width / 2)
+    .attr("y", height - 10)
+    .attr("text-anchor", "middle")
+    .attr("font-size", "12px")
+    .attr("fill", "#888")
+    .text("U.S. population");
 }
 
 function clearChart() {
