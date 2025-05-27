@@ -1,5 +1,7 @@
 @use "./constants" as *;
 
+@import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -55,14 +57,15 @@ h3 {
 }
 
 h1 {
+  font-family: $font-heading;
   font-size: clamp(3rem, 10vw, 6rem);
-  font-weight: 1000;
+  font-weight: 400;
   letter-spacing: 0.1em;
-  color: #111;
+  color: $color-heading;
   text-transform: uppercase;
   width: 100%;
   text-align: center;
-  line-height: 1.5;
+  line-height: 1.2;
 }
 
 h2 {
@@ -78,7 +81,7 @@ p {
 
 .footer {
   font-size: 1rem;
-  color: #444;
+  color: $color-muted;
 }
 
 .page-bottom-spacer {
@@ -105,21 +108,20 @@ p {
 // Intro Section
 .text-section.intro {
   text-align: center;
-  padding: 2.5rem 1.5rem;
+  padding: 4rem 2rem 2rem;
 
-  h1 {
-    font-size: 5rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-    color: #111;
+  @media (max-width: $breakpoint-mobile) {
+    padding: 2rem 1rem;
   }
 
   p {
-    font-size: 1rem;
-    color: #444;
-    max-width: 900px;
+    font-size: 1.125rem;
+    color: $color-muted;
+    max-width: 700px;
     margin: 0 auto 1.2rem auto;
+    line-height: 1.75;
   }
+
   .fatal-stats {
     text-align: center;
     font-size: 2.2rem;
@@ -133,15 +135,15 @@ p {
     .victim-count {
       font-size: 2.2rem;
       font-weight: 700;
-      color: #1d4ed8;
+      color: $color-primary;
       margin-right: 0.5rem;
     }
 
     .victim-text {
-      color: #111;
+      color: $color-heading;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: $breakpoint-mobile) {
       font-size: 1.4rem;
 
       .victim-count {
@@ -151,7 +153,7 @@ p {
   }
 }
 
-//Footer Section Stuff
+// Footer Section
 .footer {
   text-align: center;
   padding-bottom: 2rem;
@@ -160,7 +162,7 @@ p {
     max-width: 800px;
     margin: 0 auto;
     font-size: 1rem;
-    color: #444;
+    color: $color-muted;
 
     h3 {
       font-size: 1.25rem;
@@ -220,7 +222,7 @@ p {
 
     strong {
       font-weight: 600;
-      color: #111;
+      color: $color-heading;
     }
   }
 }
@@ -253,7 +255,7 @@ p {
   .viz-footnote {
     font-size: 0.95rem;
     text-align: center;
-    color: #444;
+    color: $color-muted;
     max-width: 1000px;
     margin: 0 auto;
     line-height: 1.6;
@@ -315,7 +317,7 @@ p {
   text-align: center;
 
   .viz-header {
-    margin-bottom: 0.5rem; // ↓ reduced space above chart
+    margin-bottom: 0.5rem;
 
     h2 {
       font-size: 1.5rem;
@@ -326,7 +328,7 @@ p {
       font-size: 1rem;
       color: #333;
       max-width: 800px;
-      margin: 0 auto 0.25rem auto; // ↓ reduced bottom margin
+      margin: 0 auto 0.25rem auto;
       line-height: 1.6;
     }
   }
@@ -340,7 +342,7 @@ p {
 
   .age-footnote {
     font-size: 1rem;
-    color: #444;
+    color: $color-muted;
     max-width: 800px;
     margin: 0 auto;
     line-height: 1.6;
@@ -377,8 +379,8 @@ p {
       font-size: 0.95rem;
       padding: 10px 16px;
       border-radius: 4px;
-      min-width: 520px; // forces wider layout
-      white-space: nowrap; // ensures one-line text
+      min-width: 520px;
+      white-space: nowrap;
       text-align: center;
       opacity: 0;
       transition: opacity 0.3s ease;
@@ -390,7 +392,7 @@ p {
       margin-top: 6px;
       font-size: 0.85rem;
       font-style: italic;
-      color: #ccc;
+      color: $color-subtle;
     }
 
     &:hover .image-caption {
