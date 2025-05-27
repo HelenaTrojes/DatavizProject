@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import ageImage from "../assets/img/graffiti.jpeg"; // import image asset
 
 const margin = { top: 20, right: 40, bottom: 40, left: 80 };
 const width = 800;
@@ -34,10 +35,10 @@ export async function initialize() {
   ];
 
   const counts = Object.fromEntries(bins.map((b) => [b.label, 0]));
-
   for (const d of data) {
     const age = +d.age;
-    if (!isNaN(age) && age >= 5 && age <= 100) {
+    // below, filter of the below 5 years olds and the faulty age values, as there are 400 something
+    if (!isNaN(age) && age >= 5) {
       const bin = bins.find((b) => age >= b.min && age <= b.max);
       if (bin) counts[bin.label]++;
     }
@@ -64,6 +65,56 @@ export async function initialize() {
     .range([margin.top, chartHeight - margin.bottom])
     .padding(0.2);
 
+  // Image mask definition
+  const defs = svg.append("defs");
+  const mask = defs.append("mask").attr("id", "age-mask");
+  mask
+    .append("rect")
+    .attr("width", width)
+    .attr("height", chartHeight)
+    .attr("fill", "black");
+
+  mask
+    .selectAll("rect")
+    .data(dataset)
+    .join("rect")
+    .attr("x", x(0))
+    .attr("y", (d) => y(d.age_group))
+    .attr("width", (d) => x(d.count) - x(0))
+    .attr("height", y.bandwidth())
+    .attr("fill", "white");
+
+  // Background image with mask
+  svg
+    .append("image")
+    .attr("href", ageImage)
+    .attr("width", width)
+    .attr("height", chartHeight)
+    .attr("preserveAspectRatio", "xMidYMid slice")
+    .attr("mask", "url(#age-mask)");
+
+  // Overlay colored bars
+  svg
+    .selectAll("rect.overlay")
+    .data(dataset)
+    .join("rect")
+    .attr("class", "overlay")
+    .attr("x", x(0))
+    .attr("y", (d) => y(d.age_group))
+    .attr("width", (d) => x(d.count) - x(0))
+    .attr("height", y.bandwidth())
+    .attr("fill", (d) =>
+      d.highlight ? "rgba(29, 78, 216, 0.4)" : "rgba(203, 213, 225, 0.3)"
+    );
+
+  // Y axis
+  svg
+    .append("g")
+    .attr("transform", `translate(${margin.left - 10},0)`)
+    .call(d3.axisLeft(y).tickSizeOuter(0))
+    .selectAll("text")
+    .attr("font-size", "12px");
+
   // Tooltip
   const tooltip = d3
     .select("body")
@@ -79,50 +130,33 @@ export async function initialize() {
     .style("pointer-events", "none")
     .style("opacity", 0);
 
-  // Bars
+  // Hover interaction
   svg
-    .selectAll("rect.bar")
+    .selectAll("rect.interact")
     .data(dataset)
     .join("rect")
-    .attr("class", "bar")
+    .attr("class", "interact")
     .attr("x", x(0))
     .attr("y", (d) => y(d.age_group))
     .attr("width", (d) => x(d.count) - x(0))
     .attr("height", y.bandwidth())
-    .attr("fill", (d) => (d.highlight ? "#1d4ed8" : "#cbd5e1"))
-    .attr("style", "cursor: pointer;")
-    .on("mouseover", function (event, d) {
-      d3.select(this)
-        .transition()
-        .duration(150)
-        .attr("fill", d.highlight ? "#2563eb" : "#94a3b8");
-
+    .attr("fill", "transparent")
+    .style("cursor", "pointer")
+    .on("mouseover", (event, d) => {
       tooltip
         .style("opacity", 1)
         .html(`<strong>${d.count}</strong> victims`)
         .style("left", `${event.pageX + 14}px`)
         .style("top", `${event.pageY - 14}px`);
     })
-    .on("mousemove", function (event) {
+    .on("mousemove", (event) => {
       tooltip
         .style("left", `${event.pageX + 14}px`)
         .style("top", `${event.pageY - 14}px`);
     })
-    .on("mouseout", function (event, d) {
-      d3.select(this)
-        .transition()
-        .duration(200)
-        .attr("fill", d.highlight ? "#1d4ed8" : "#cbd5e1");
-
-      tooltip.transition().duration(150).style("opacity", 0);
+    .on("mouseout", () => {
+      tooltip.transition().duration(200).style("opacity", 0);
     });
-
-  svg
-    .append("g")
-    .attr("transform", `translate(${margin.left - 10},0)`)
-    .call(d3.axisLeft(y))
-    .selectAll("text")
-    .attr("font-size", "12px");
 
   return [() => {}];
 }
