@@ -29,11 +29,19 @@
         </div>
       </section>
 
-      <section class="viz" id="viz">
-        <h2>Geographic Overview</h2>
-        <p>
-          This map shows where fatal police shootings occurred across the U.S.
-        </p>
+      <section class="viz map-section" id="viz1">
+        <div class="map-wrapper">
+          <div class="viz-header">
+            <h2>Geographic Overview: Where Do Shootings Happen?</h2>
+            <p>
+              This map shows the geographic distribution of fatal police
+              shootings across the United States. Each dot represents a location
+              where one or more deaths occurred.
+            </p>
+          </div>
+
+          <div id="viz"></div>
+        </div>
       </section>
 
       <section class="viz timeline-section" id="viz2">
@@ -136,10 +144,24 @@
       </section>
 
       <section class="viz" id="viz4">
-        <h2>Mental Illness and Threat Level</h2>
-        <p>
-          How often are shootings linked to mental illness or reported threat
-          level?
+        <div class="viz-header">
+          <h2>Mental Illness and Threat Level</h2>
+          <p>
+            How often are shootings linked to mental illness or reported threat
+            level?
+          </p>
+        </div>
+
+        <div id="chart-container"></div>
+
+        <p class="viz4-explanation">
+          Although most victims — whether showing signs of mental illness or not
+          — were labeled as posing an "attack" threat, the similar proportions
+          suggest that mental health status had little influence on how
+          threatening individuals were perceived in these fatal encounters. This
+          could indicate that officers responded similarly regardless of visible
+          mental health conditions, raising questions about how threat
+          assessments are made in high-stress situations.
         </p>
       </section>
 

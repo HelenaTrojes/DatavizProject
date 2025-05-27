@@ -14,7 +14,7 @@ import * as d3 from "d3";
 map();
 timeline().then(([drawBars]) => drawBars());
 race().then(([drawChart]) => drawChart());
-mental();
+mental().then(([drawThreatChart]) => drawThreatChart());
 age();
 weapons();
 
