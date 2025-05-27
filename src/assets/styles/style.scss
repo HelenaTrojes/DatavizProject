@@ -109,6 +109,11 @@ p {
 .text-section.intro {
   text-align: center;
   padding: 4rem 2rem 2rem;
+  background-color: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
 
   @media (max-width: $breakpoint-mobile) {
     padding: 2rem 1rem;
@@ -349,6 +354,55 @@ p {
     text-align: center;
     margin-top: 0.1rem;
   }
+}
+
+// Weapons/Armed Section
+.weapons-section {
+  text-align: center;
+
+  .viz-header p {
+    font-size: 1.1rem;
+    color: #444;
+    max-width: 1000px;
+    margin: 0 auto 1rem;
+    line-height: 1.6;
+  }
+
+  #weapons-chart-container {
+    display: block;
+    text-align: center;
+    width: 100%;
+    margin: 1.5rem 0 1rem;
+
+    svg {
+      display: inline-block;
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  svg text {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: "Newsreader", serif;
+  }
+
+  .weapons-footnote {
+    font-size: 0.8rem;
+    color: #666;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+    font-style: italic;
+
+    &.small-note {
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+.person-icon svg {
+  pointer-events: none;
 }
 
 // Closing Image Section (above footer)

@@ -6,6 +6,7 @@ import { initialize as timeline } from "./viz2-timeline";
 import { initialize as race } from "./viz3-racebar";
 import { initialize as mental } from "./viz4-mental";
 import { initialize as age } from "./viz5-age";
+import { initialize as weapons } from "./viz6-weapons.js";
 import victimNames from "../assets/police_shooting_victim_names.txt?raw";
 import * as d3 from "d3";
 
@@ -15,6 +16,7 @@ timeline().then(([drawBars]) => drawBars());
 race().then(([drawChart]) => drawChart());
 mental();
 age();
+weapons();
 
 // Victim names in background
 const container = document.querySelector(".background-names");
