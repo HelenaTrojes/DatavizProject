@@ -32,7 +32,7 @@ export async function initialize() {
     return "Other";
   }
 
-  function getScaledSample(data, total = 48) {
+  function getScaledSample(data, total = 77) {
     const filtered = data.filter(
       (d) => d.armed && d.armed.trim().toLowerCase() !== "unknown"
     );
@@ -53,14 +53,16 @@ export async function initialize() {
     const delta = total - d3.sum(scaled, (d) => d.count);
     if (delta !== 0) scaled[0].count += delta;
 
-    const colorMap = {
+    const colorMap = new Proxy({}, { get: () => "#111" });
+
+    /* const colorMap = {
       Gun: "#222",
       Knife: "#b03a2e",
       Car: "#e67e22",
       Unarmed: "#7f8c8d",
       "Toy/Replica Gun": "#bd9f46",
       Other: "#2980b9",
-    };
+    }; */
 
     return scaled
       .map((d) => ({ ...d, color: colorMap[d.category] || "#555" }))
@@ -141,5 +143,5 @@ export async function initialize() {
     });
   }
 
-  draw(getScaledSample(raw, 48));
+  draw(getScaledSample(raw, 77));
 }

@@ -67,7 +67,7 @@ function drawBars() {
     .attr("height", (d) => y(0) - y(d.count))
     .attr("fill", "white");
 
-  // 2. Apply mask directly to the image
+  // mask directly to the image
   svg
     .append("image")
     .attr("href", imageUrl)
@@ -76,43 +76,21 @@ function drawBars() {
     .attr("preserveAspectRatio", "xMidYMid slice")
     .attr("mask", "url(#bar-mask)");
 
-  // 3. Tooltip
-  const tooltip = d3
-    .select("body")
-    .append("div")
-    .attr("class", "tooltip speech-bubble")
-    .style("opacity", 0);
-
-  // 4. Transparent interaction rectangles
+  // labels on top of bars
   svg
-    .selectAll("rect.interact")
+    .selectAll("text.bar-label")
     .data(yearCounts)
-    .join("rect")
-    .attr("class", "interact")
-    .attr("x", (d) => x(d.year))
-    .attr("y", (d) => y(d.count))
-    .attr("width", x.bandwidth())
-    .attr("height", (d) => y(0) - y(d.count))
-    .attr("fill", "transparent")
-    .style("cursor", "pointer")
-    .on("mouseover", (event, d) => {
-      const rect = event.target.getBoundingClientRect();
-      const scrollY = window.scrollY || document.documentElement.scrollTop;
+    .join("text")
+    .attr("class", "bar-label")
+    .attr("x", (d) => x(d.year) + x.bandwidth() / 2)
+    .attr("y", (d) => y(d.count) - 6)
+    .attr("text-anchor", "middle")
+    .text((d) => d.count)
+    .style("font-size", "12px")
+    .style("fill", "#111")
+    .style("font-weight", "400");
 
-      tooltip
-        .html(`${d.count} victims`)
-        .style("left", `${rect.left + rect.width / 2}px`)
-        .style("top", `${rect.top + scrollY - 42}px`)
-        .style("transform", "translateX(-50%)")
-        .transition()
-        .duration(150)
-        .style("opacity", 1);
-    })
-    .on("mouseout", () => {
-      tooltip.transition().duration(150).style("opacity", 0);
-    });
-
-  // 5. X-axis only
+  // 4. X-axis only
   svg
     .append("g")
     .attr("transform", `translate(0, ${height - margin.bottom})`)

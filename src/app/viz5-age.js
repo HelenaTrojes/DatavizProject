@@ -115,7 +115,20 @@ export async function initialize() {
     .selectAll("text")
     .attr("font-size", "12px");
 
-  // Tooltip
+  // Static text label
+  svg
+    .append("g")
+    .selectAll("text.label")
+    .data(dataset)
+    .join("text")
+    .attr("class", "label")
+    .attr("x", (d) => x(d.count) + 5)
+    .attr("y", (d) => y(d.age_group) + y.bandwidth() / 2 + 4)
+    .attr("fill", "#666")
+    .attr("font-size", "12px")
+    .text((d) => (d.age_group === "0–4" ? "" : d.count)); // Hides 0–4 age group count, since that one contains faulty data, otherwise we will be looking at 400ish baby victims. Wouldn't look good for the police.
+
+  /* // Tooltip
   const tooltip = d3
     .select("body")
     .append("div")
@@ -156,7 +169,7 @@ export async function initialize() {
     })
     .on("mouseout", () => {
       tooltip.transition().duration(200).style("opacity", 0);
-    });
+    }); */
 
   return [() => {}];
 }
