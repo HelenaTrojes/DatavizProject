@@ -25,7 +25,7 @@ const drawThreatChart = async () => {
   );
 
   const labelMap = {
-    TRUE: "Signs of Mental Illness",
+    TRUE: "Shows Signs",
     FALSE: "No Signs",
   };
 
@@ -76,6 +76,8 @@ const drawThreatChart = async () => {
 
   const stacked = d3.stack().keys(threatLevels)(normalizedData);
 
+  const tooltip = d3.select(".tooltip");
+
   svg
     .append("g")
     .selectAll("g")
@@ -83,13 +85,37 @@ const drawThreatChart = async () => {
     .join("g")
     .attr("fill", (d) => color(d.key))
     .selectAll("rect")
-    .data((d) => d)
+    .data((d) => d.map((segment) => ({ ...segment, key: d.key })))
     .join("rect")
     .attr("x", (d) => x(d.data.group))
     .attr("y", (d) => y(d[1]))
     .attr("height", (d) => y(d[0]) - y(d[1]))
-    .attr("width", x.bandwidth());
+    .attr("width", x.bandwidth())
+    .style("cursor", "pointer")
 
+    .on("mouseover", function () {
+      tooltip.style("opacity", 1);
+    })
+    .on("mousemove", function (event, d) {
+      const group = d.data.group;
+      const percent = ((d[1] - d[0]) * 100).toFixed(1);
+      const hasMentalIllness = group === "Shows Signs" ? "True" : "False";
+      const threatLevel = d.key.charAt(0).toUpperCase() + d.key.slice(1);
+
+      tooltip
+        .html(
+          `<strong>Threat Level:</strong> ${threatLevel}<br/>
+       <strong>Signs of Mental Illness:</strong> ${hasMentalIllness}<br/>
+       <strong>Proportion:</strong> ${percent}%`
+        )
+        .style("left", event.pageX + 0 + "px")
+        .style("top", event.pageY - 100 + "px");
+    })
+    .on("mouseout", function () {
+      tooltip.style("opacity", 0);
+    });
+
+  // Add axes
   svg
     .append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`)
@@ -100,6 +126,7 @@ const drawThreatChart = async () => {
     .attr("transform", `translate(${margin.left},0)`)
     .call(d3.axisLeft(y).ticks(5, "%"));
 
+  // Add labels for the axis
   svg
     .append("text")
     .attr("transform", "rotate(-90)")
@@ -110,12 +137,23 @@ const drawThreatChart = async () => {
     .style("font-weight", "bold")
     .text("Proportion of Threat Classification");
 
+  svg
+    .append("text")
+    .attr("x", width / 2)
+    .attr("y", height - 6) // adjust this to be slightly below the x-axis
+    .attr("text-anchor", "middle")
+    .style("font-size", "14px")
+    .style("font-weight", "bold")
+    .text("Signs of Mental Illness");
+
+  // the legend
   const legend = svg
     .append("g")
     .attr("transform", `translate(${width - margin.right + 10},${margin.top})`);
 
-  threatLevels.forEach((key, i) => {
+  [...threatLevels].reverse().forEach((key, i) => {
     const g = legend.append("g").attr("transform", `translate(0, ${i * 20})`);
+
     g.append("rect")
       .attr("width", 15)
       .attr("height", 15)

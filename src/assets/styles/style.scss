@@ -477,6 +477,7 @@ p {
   #chart-container {
     margin: 0 auto;
     max-width: 900px;
+    position: relative;
 
     svg {
       display: block;
@@ -545,4 +546,34 @@ p {
       opacity: 1;
     }
   }
+}
+
+.footer {
+  background-color: #5b7fa3;
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.footer h3 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #ffffff;
+  border-bottom: 2px solid #ffffff50;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.footer p {
+  color: #ffffff;
+  margin: 6px 0;
+  font-size: 1rem;
+}
+
+.footer p:last-child {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  margin-top: 20px;
 }

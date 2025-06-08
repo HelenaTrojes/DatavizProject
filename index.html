@@ -1,207 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Fatal Force – Police Shootings</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <!-- Background Victim Names -->
-    <div class="background-names" aria-hidden="true"></div>
 
-    <main>
-      <section class="text-section intro">
-        <h1>Fatal Force</h1>
-        <div id="fatal-force-stats" class="fatal-stats">
-          <span class="victim-count" id="victim-count">0</span>
-          <span class="victim-text">
-            people have been shot and killed by police in the United States from
-            <span id="year-range">2015–2022</span>
-          </span>
-        </div>
-      </section>
+<head>
+  <meta charset="UTF-8" />
+  <title>Fatal Force – Police Shootings</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&display=swap" rel="stylesheet" />
+</head>
 
-      <section class="viz map-section" id="viz1">
-        <div class="map-wrapper">
-          <div class="viz-header">
-            <h2>Geographic Overview: Where Do Shootings Happen?</h2>
-            <p>
-              This map shows the geographic distribution of fatal police
-              shootings across the United States. Each dot represents a location
-              where one or more deaths occurred.
-            </p>
-          </div>
+<body>
+  <!-- Background Victim Names -->
+  <div class="background-names" aria-hidden="true"></div>
 
-          <div id="viz"></div>
-        </div>
-      </section>
+  <main>
+    <section class="text-section intro">
+      <h1>Fatal Force</h1>
+      <div id="fatal-force-stats" class="fatal-stats">
+        <span class="victim-count" id="victim-count">0</span>
+        <span class="victim-text">
+          people have been shot and killed by police in the United States from
+          <span id="year-range">2015–2022</span>
+        </span>
+      </div>
+    </section>
 
-      <section class="viz timeline-section" id="viz2">
+    <section class="viz map-section" id="viz1">
+      <div class="map-wrapper">
         <div class="viz-header">
-          <h2>A Deadly Pattern That Persists</h2>
+          <h2>Geographic Overview: Where Do Shootings Happen?</h2>
           <p>
-            Every year, hundreds of people in the United States are fatally shot
-            by police. While the totals fluctuate slightly, the overall number
-            remains alarmingly consistent — averaging around 1,000 victims
-            annually since 2015.
+            This map shows the geographic distribution of fatal police
+            shootings across the United States. Each dot represents a location
+            where one or more deaths occurred.
           </p>
         </div>
-        <div id="timeline-chart-container"></div>
-        <div class="viz-footnote">
-          <p class="keep-oneline">
-            The number of lives lost reflects not just the scale of the problem,
-            but its unsettling consistency — a reminder that reform remains
-            elusive.
-          </p>
-        </div>
-      </section>
 
-      <section class="viz race-disparity-section" id="viz3">
-        <div class="viz-header">
-          <h2>
-            Black Americans are killed at a much higher rate than White
-            Americans
-          </h2>
-          <p>
-            Although White Americans represent the largest share of police
-            shooting victims in absolute numbers,
-          </p>
-          <p>
-            Black Americans are disproportionately affected when adjusted for
-            population size.
-          </p>
-        </div>
-        <div id="race-chart-container"></div>
-        <div class="viz-explanation">
-          <p>
-            This chart shows fatal police shootings per million residents per
-            year, grouped by race. The height of each bar reflects the risk of
-            being killed by police, while the width reflects that group's share
-            of the U.S. population.
-          </p>
-          <p>
-            Black Americans are killed at more than twice the rate of White
-            Americans — despite being a much smaller share of the population.
-            Hispanic Americans also face elevated risks. These disparities
-            highlight broader questions of systemic inequality and policing
-            practices in the U.S.
-          </p>
-        </div>
-      </section>
+        <div id="viz"></div>
+      </div>
+    </section>
 
-      <section class="viz age-distribution-section" id="viz5">
-        <div class="viz-header">
-          <h2>Most Victims Are Young</h2>
-          <p>
-            More than half of the people shot and killed by police are between
-            20 and 40 years old.
-          </p>
-        </div>
-        <div id="age-chart-container"></div>
-        <p class="age-footnote">
-          An overwhelming majority of the victims are male - 95%! This striking
-          imbalance raises questions about why young men, in particular, are so
-          frequently involved in fatal encounters. It points toward deeper
-          social, economic, and cultural factors, including how masculinity,
-          risk, policing, and structural disadvantage intersect in high-stakes
-          situations.
+    <section class="viz timeline-section" id="viz2">
+      <div class="viz-header">
+        <h2>A Deadly Pattern That Persists</h2>
+        <p>
+          Every year, hundreds of people in the United States are fatally shot
+          by police. While the totals fluctuate slightly, the overall number
+          remains alarmingly consistent — averaging around 1,000 victims
+          annually since 2015.
         </p>
-      </section>
-
-      <section class="viz weapons-section" id="viz6">
-        <div class="viz-header">
-          <h2>What Were Victims Reported to Be Armed With?</h2>
-          <p>
-            In many fatal police shootings, the person killed was reported to be
-            holding a weapon — most often a firearm. Based on 7,729 cases with
-            known weapon data, each of the 77 icons below represents
-            approximately 100 individuals, offering a simplified visual snapshot
-            of the reported circumstances.
-          </p>
-        </div>
-
-        <div id="weapons-chart-container"></div>
-
-        <p class="weapons-footnote small-note">
-          *Other includes items such as a taser, hammer, shovel, or blunt
-          objects.
+      </div>
+      <div id="timeline-chart-container"></div>
+      <div class="viz-footnote">
+        <p class="keep-oneline">
+          The number of lives lost reflects not just the scale of the problem,
+          but its unsettling consistency — a reminder that reform remains
+          elusive.
         </p>
+      </div>
+    </section>
 
-        <p></p>
-        <p class="weapons-conclusion">
-          The fact that most victims were reported to be holding a firearm
-          highlights the very real danger officers may face in these encounters.
-          In situations involving visible weapons, decisions are often made in a
-          matter of seconds — with little margin for error. But not all cases
-          are as clear. As we’ll see next, perceived threat isn’t just about
-          what someone holds — it’s also shaped by factors like mental illness,
-          behavior, and uncertainty.
+    <section class="viz race-disparity-section" id="viz3">
+      <div class="viz-header">
+        <h2>
+          Black Americans are killed at a much higher rate than White
+          Americans
+        </h2>
+        <p>
+          Although White Americans represent the largest share of police
+          shooting victims in absolute numbers,
         </p>
-      </section>
-
-      <section class="viz" id="viz4">
-        <div class="viz-header">
-          <h2>Mental Illness and Threat Level</h2>
-          <p>
-            How often are shootings linked to mental illness or reported threat
-            level?
-          </p>
-        </div>
-
-        <div id="chart-container"></div>
-
-        <p class="viz4-explanation">
-          Although most victims — whether showing signs of mental illness or not
-          — were labeled as posing an "attack" threat, the similar proportions
-          suggest that mental health status had little influence on how
-          threatening individuals were perceived in these fatal encounters. This
-          could indicate that officers responded similarly regardless of visible
-          mental health conditions, raising questions about how threat
-          assessments are made in high-stress situations.
+        <p>
+          Black Americans are disproportionately affected when adjusted for
+          population size.
         </p>
-      </section>
+      </div>
+      <div id="race-chart-container"></div>
+      <div class="viz-explanation">
+        <p>
+          This chart shows fatal police shootings per million residents per
+          year, grouped by race. The height of each bar reflects the risk of
+          being killed by police, while the width reflects that group's share
+          of the U.S. population.
+        </p>
+        <p>
+          Black Americans are killed at more than twice the rate of White
+          Americans — despite being a much smaller share of the population.
+          Hispanic Americans also face elevated risks. These disparities
+          highlight broader questions of systemic inequality and policing
+          practices in the U.S.
+        </p>
+      </div>
+    </section>
 
-      <section class="closing-image-section hover-caption">
-        <div class="image-wrapper">
-          <img
-            src="/src/assets/img/whos-next.png"
-            alt="Protester with 'Who’s Next?' shirt"
-          />
-          <div class="image-caption">
-            “Not everything that is faced can be changed, but nothing can be
-            changed until it is faced.”
-            <div class="attribution">— James Baldwin</div>
-          </div>
+    <section class="viz age-distribution-section" id="viz5">
+      <div class="viz-header">
+        <h2>Most Victims Are Young</h2>
+        <p>
+          More than half of the people shot and killed by police are between
+          20 and 40 years old.
+        </p>
+      </div>
+      <div id="age-chart-container"></div>
+      <p class="age-footnote">
+        An overwhelming majority of the victims are male - 95%! This striking
+        imbalance raises questions about why young men, in particular, are so
+        frequently involved in fatal encounters. It points toward deeper
+        social, economic, and cultural factors, including how masculinity,
+        risk, policing, and structural disadvantage intersect in high-stakes
+        situations.
+      </p>
+    </section>
+
+    <section class="viz weapons-section" id="viz6">
+      <div class="viz-header">
+        <h2>What Were Victims Reported to Be Armed With?</h2>
+        <p>
+          In many fatal police shootings, the person killed was reported to be
+          holding a weapon — most often a firearm. Based on 7,729 cases with
+          known weapon data, each of the 77 icons below represents
+          approximately 100 individuals, offering a simplified visual snapshot
+          of the reported circumstances.
+        </p>
+      </div>
+
+      <div id="weapons-chart-container"></div>
+
+      <p class="weapons-footnote small-note">
+        *Other includes items such as a taser, hammer, shovel, or blunt
+        objects.
+      </p>
+
+      <p></p>
+      <p class="weapons-conclusion">
+        The fact that most victims were reported to be holding a firearm
+        highlights the very real danger officers may face in these encounters.
+        In situations involving visible weapons, decisions are often made in a
+        matter of seconds — with little margin for error. But not all cases
+        are as clear. As we’ll see next, perceived threat isn’t just about
+        what someone holds — it’s also shaped by factors like mental illness,
+        behavior, and uncertainty.
+      </p>
+    </section>
+
+    <section class="viz" id="viz4">
+      <div class="viz-header">
+        <h2>Mental Illness and Threat Level</h2>
+        <p>
+          How often are shootings linked to mental illness or reported threat
+          level?
+        </p>
+      </div>
+
+      <div id="chart-container" style="position: relative;"></div>
+
+      <p class="viz4-explanation">
+        Although most victims — whether showing signs of mental illness or not
+        — were labeled as posing an "attack" threat, the similar proportions
+        suggest that mental health status had little influence on how
+        threatening individuals were perceived in these fatal encounters. This
+        could indicate that officers responded similarly regardless of visible
+        mental health conditions, raising questions about how threat
+        assessments are made in high-stress situations.
+      </p>
+    </section>
+
+    <section class="closing-image-section hover-caption">
+      <div class="image-wrapper">
+        <img src="/src/assets/img/whos-next.png" alt="Protester with 'Who’s Next?' shirt" />
+        <div class="image-caption">
+          “Not everything that is faced can be changed, but nothing can be
+          changed until it is faced.”
+          <div class="attribution">— James Baldwin</div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Footer -->
-      <footer class="footer">
-        <div class="footer-inner">
-          <h3>About This Project</h3>
-          <p>
-            This narrative data visualization was created as part of the
-            university course Narrative Visualization, developed collaboratively
-            by Iosif Cicio, Felix Koller, and Helena Vishkurti.
-          </p>
-        </div>
-      </footer>
+    <!-- Footer -->
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <h3>About This Project</h3>
+        <p>
+          This narrative data visualization was created for the university course <em>Narrative Visualization</em>,
+          developed collaboratively by Iosif Cicio, Felix Koller, and Helena Vishkurti.
+        </p>
+        <p>
+          © 2025 St. Pölten University of Applied Sciences. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  </main>
 
-      <div class="page-bottom-spacer"></div>
-    </main>
+  <script type="module" src="/src/app/app.js"></script>
+</body>
 
-    <script type="module" src="/src/app/app.js"></script>
-  </body>
 </html>
